@@ -1,8 +1,10 @@
-#ifndef PACKETS_H
-#define PACKETS_H
+#ifndef PACKETS_H_
+#define PACKETS_H_
 
 #include <stdio.h>
 #include <string.h>
+
+#define CLEAR(x) memset(&x, 0x00, 8)
 
 #define MB1_ID  11
 #define MB2_ID  22
@@ -24,19 +26,22 @@ typedef struct
 typedef struct
 {
     //int cont;
-    /* Mangue Telemetry Struct */
-    imu_acc_t imu_acc;
-    imu_dps_t imu_dps;
-    uint16_t rpm;
-    uint16_t speed;
-    uint8_t temperature;
-    uint8_t flags; // MSB - BOX | BUFFER FULL | NC | NC | FUEL_LEVEL | SERVO_ERROR | CHK | RUN - LSB
+    /* REAR DATAS */
+    float volt;
     uint8_t SOC;
     uint8_t cvt;
-    float volt;
+    uint8_t temperature;
+    /* FRONT DATAS */
+    uint8_t flags; // MSB - BOX | BUFFER FULL | NC | NC | FUEL_LEVEL | SERVO_ERROR | CHK | RUN - LSB
+    imu_dps_t imu_dps;
+    imu_acc_t imu_acc;
+    uint16_t rpm;
+    uint16_t speed;
+    /* GPS DATAS */
     double latitude;
     double longitude;
-    //uint16_t fuel_level;
+    uint8_t satelites;
+    /* DEBUG DATA */
     uint32_t timestamp;
 } radio_packet_t;
 
